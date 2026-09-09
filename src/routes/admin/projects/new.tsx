@@ -49,7 +49,7 @@ function NewProject() {
                 design: input.design,
                 development: input.development,
                 results: input.results,
-                cover_image: (input as any).cover_image ?? null,
+                cover_image: input.coverImageUrl ?? input.cover_image ?? null,
                 services: input.services,
                 technologies: input.technologies,
                 project_link: input.url || null,

@@ -39,6 +39,7 @@ export function useRemoteFeaturedProjects() {
             technologies: p.technologies ?? [],
             gallery: [],
             testimonial: null,
+            coverImageUrl: p.cover_image ?? null,
             featuredImage: p.cover_image ?? null,
             cover_image: p.cover_image ?? null,
             url: p.project_link ?? null,

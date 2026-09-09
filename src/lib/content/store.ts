@@ -32,6 +32,14 @@ function buildProject(
   const slug = uniqueSlug(input.slug || input.title, taken);
   const placeholder = !input.challenge && !input.approach && !input.design;
   const published = input.published;
+  const resolvedCoverImageUrl =
+    input.coverImageUrl?.trim() ||
+    input.cover_image?.trim() ||
+    current?.coverImageUrl ||
+    current?.cover_image ||
+    current?.featuredImage ||
+    null;
+
   return {
     id: current?.id ?? createId("proj"),
     numericId: current?.numericId ?? null,
@@ -53,10 +61,9 @@ function buildProject(
     technologies: input.technologies,
     gallery: current?.gallery ?? [],
     testimonial: current?.testimonial ?? null,
-    featuredImage:
-      input.cover_image?.trim() || current?.cover_image || current?.featuredImage || null,
-    cover_image:
-      input.cover_image?.trim() || current?.cover_image || current?.featuredImage || null,
+    coverImageUrl: resolvedCoverImageUrl,
+    featuredImage: resolvedCoverImageUrl,
+    cover_image: resolvedCoverImageUrl,
     url: input.url.trim() ? input.url.trim() : null,
     featured: input.featured,
     published,
@@ -162,6 +169,7 @@ export const useContentStore = create<ContentState>()(
               technologies: p.technologies || [],
               gallery: [],
               testimonial: null,
+              coverImageUrl: p.cover_image || null,
               featuredImage: p.cover_image || null,
               cover_image: p.cover_image || null,
               url: p.project_link || null,
@@ -287,7 +295,7 @@ export const useContentStore = create<ContentState>()(
             design: input.design,
             development: input.development,
             results: input.results || null,
-            cover_image: input.cover_image || null,
+            cover_image: input.coverImageUrl ?? input.cover_image ?? null,
             services: input.services,
             technologies: input.technologies,
             project_link: input.url || null,
@@ -297,6 +305,7 @@ export const useContentStore = create<ContentState>()(
           const local = buildProject(input, get().projects);
           local.id = res.slug;
           local.numericId = res.id;
+          local.coverImageUrl = res.cover_image ?? local.coverImageUrl ?? null;
           local.cover_image = res.cover_image ?? null;
           local.featuredImage = res.cover_image ?? null;
           set({ projects: [...get().projects, local] });
@@ -328,7 +337,7 @@ export const useContentStore = create<ContentState>()(
               design: input.design,
               development: input.development,
               results: input.results || null,
-              cover_image: input.cover_image || null,
+              cover_image: input.coverImageUrl ?? input.cover_image ?? null,
               services: input.services,
               technologies: input.technologies,
               project_link: input.url || null,

@@ -113,7 +113,7 @@ function CaseStudy() {
         <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12 xl:px-16">
           <ProjectVisual
             visual={project.visual}
-            imageUrl={project.cover_image || project.featuredImage}
+            imageUrl={project.coverImageUrl ?? project.cover_image ?? project.featuredImage ?? null}
             className="mb-10 aspect-[16/8] min-h-56 w-full"
             caption={project.placeholder ? "PREPARING" : project.category.toUpperCase()}
           />

@@ -23,7 +23,8 @@ export type Project = {
   technologies: string[];
   gallery: { src: string; alt: string }[];
   testimonial: string | null;
-  featuredImage: string | null;
+  coverImageUrl: string | null;
+  featuredImage?: string | null;
   cover_image?: string | null;
   url: string | null;
   featured: boolean;
@@ -56,6 +57,7 @@ export type ProjectInput = {
   services: string[];
   technologies: string[];
   url: string;
+  coverImageUrl?: string;
   cover_image?: string;
   status: ProjectStatus;
   published: boolean;

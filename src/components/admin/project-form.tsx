@@ -30,14 +30,14 @@ export function ProjectForm({
 }) {
   const [form, setForm] = useState<ProjectInput>(initial);
   const [tech, setTech] = useState(initial.technologies.join(", "));
-  const [cover, setCover] = useState(initial.cover_image ?? "");
+  const [cover, setCover] = useState(initial.coverImageUrl ?? initial.cover_image ?? "");
   const [error, setError] = useState("");
   const [slugTouched, setSlugTouched] = useState(Boolean(initial.slug));
 
   useEffect(() => {
     setForm(initial);
     setTech(initial.technologies.join(", "));
-    setCover(initial.cover_image ?? "");
+    setCover(initial.coverImageUrl ?? initial.cover_image ?? "");
     setSlugTouched(Boolean(initial.slug));
   }, [initial]);
 
@@ -68,6 +68,7 @@ export function ProjectForm({
     setError("");
     onSubmit({
       ...form,
+      coverImageUrl: cover,
       cover_image: cover,
       technologies: tech
         .split(",")
